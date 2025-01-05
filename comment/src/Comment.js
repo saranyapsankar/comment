@@ -12,24 +12,25 @@ const Comment = ({ commentObj, updateAction }) => {
     switch (action) {
       case "like":
         updatedComment.isLike = !commentObj.isLike;
+        updateAction(action, updatedComment);
         break;
 
       case "edit":
         updatedComment.isEdit = !commentObj.isEdit;
+        updateAction(action, updatedComment);
         break;
 
       case "reply":
         updateAction(action, {});
+        break;
 
       case "delete":
         updateAction(action, commentObj);
-        return;
+        break;
 
       default:
-        return;
+        break;
     }
-
-    updateAction(action, updatedComment);
   };
 
   return (
@@ -38,7 +39,7 @@ const Comment = ({ commentObj, updateAction }) => {
         defaultValue={commentObj.commentTxt}
         readOnly={!commentObj.isEdit}
       ></textarea>
-      <div className="btn-div" onClick={handleClick}>
+      <div className="btn-div" onClick={handleClick} >
         <button data-action="like">
           {commentObj.isLike ? "Dislike" : "Like"}
         </button>
